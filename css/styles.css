@@ -1,0 +1,30 @@
+/* Archivo de estilos CSS */
+:root{
+  --bg:#000000; --text:#FFFFFF; --text-2:#D3D3D3; --blue:#1E90FF; --green:#39FF14;
+}
+/* Propiedad que define el color o imagen de fondo */
+html,body{ font-family: 'Roboto', system-ui, -apple-system, Segoe UI, sans-serif; background:var(--bg); color:var(--text); }
+.brand-orbitron{ font-family: 'Orbitron', system-ui, sans-serif; letter-spacing:.5px; }
+.fw-800{ font-weight:800; }
+
+/* Propiedad que define el color o imagen de fondo */
+.card-dark{ background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:1rem; }
+
+/* Propiedad que define el color o imagen de fondo */
+.bg-hero{ background: radial-gradient(1200px 400px at 50% -50%, rgba(30,144,255,.25), transparent),
+                   radial-gradient(1000px 300px at 0% 20%, rgba(57,255,20,.15), transparent),
+                   #000; }
+
+.category-tile{ transition: transform .2s ease, box-shadow .2s ease; }
+.category-tile:hover{ transform: translateY(-3px); box-shadow:0 10px 24px rgba(30,144,255,.15); }
+
+.placeholder-img{ height: 180px; object-fit: cover; }
+
+.avatar{ width:48px; height:48px; display:grid; place-items:center; border-radius:50%; font-weight:700; }
+
+.whatsapp-fab{ position:fixed; right:1rem; bottom:1rem; z-index:1030; }
+/* Propiedad que define el color o imagen de fondo */
+.whatsapp-fab a{ display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius:999px; background:var(--green); color:#000; text-decoration:none; font-weight:700; }
+.whatsapp-fab a:hover{ filter:brightness(.95); }
+
+:focus{ outline: 2px dashed var(--blue); outline-offset: 2px; }

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+    <!-- Aquí comienza la cabecera del documento -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eventos — Level‑Up Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+    <!-- Aquí comienza el cuerpo de la página -->
+<body class="bg-dark text-light">
+    <!-- Barra de navegación superior -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold brand-orbitron" href="index.html">Level‑Up Gamer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+      <div id="mainNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="catalog.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link active" href="events.html">Eventos</a></li>
+          <li class="nav-item"><a class="nav-link position-relative" href="cart.html"><i class="bi bi-cart3"></i> Carrito <span id="navCartCount" class="badge bg-success ms-1 d-none">0</span></a></li>
+          <li class="nav-item" id="navAuth"><a class="btn btn-primary btn-sm" href="login.html"><i class="bi bi-person"></i> Iniciar sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <h1 class="h3 brand-orbitron mb-3">Eventos Gamer en Chile</h1>
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="card card-dark p-3 h-100">
+          <h2 class="h5">Próximos eventos</h2>
+          <ul class="list-unstyled mb-0" id="eventsList"></ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ratio ratio-4x3 rounded-4 overflow-hidden border border-secondary-subtle">
+          <!-- Mapa simple embebido (centro Chile) -->
+          <iframe src="https://www.google.com/maps?q=-33.45,-70.66&z=5&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="form-text">Mapa referencial (educativo). Usa los enlaces para abrir ubicaciones específicas.</div>
+      </div>
+    </div>
+  </main>
+
+    <!-- Pie de página -->
+  <footer class="py-4 small text-secondary border-top border-secondary-subtle">
+    <div class="container d-flex justify-content-between"><span>© <span id="year"></span> Level‑Up Gamer</span><a class="link-secondary" href="#" id="logoutLink">Cerrar sesión</a></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    App.initNavbar(); App.injectWhatsApp(); document.getElementById('year').textContent=new Date().getFullYear();
+    const events = [
+      { city:'Santiago', name:'Torneo FGC Ñuñoa', q:'-33.4569,-70.6483' },
+      { city:'Valparaíso', name:'LAN Party Puerto', q:'-33.0458,-71.6197' },
+      { city:'Concepción', name:'Expo Gamer Bio-Bío', q:'-36.826,-73.049' },
+      { city:'La Serena', name:'Retro Fest IV Región', q:'-29.9045,-71.2489' },
+      { city:'Temuco', name:'Shooter Weekend', q:'-38.7359,-72.5904' }
+    ];
+    const ul = document.getElementById('eventsList');
+    events.forEach(e=>{
+      const li = document.createElement('li');
+      li.className = 'd-flex justify-content-between align-items-center border-bottom border-secondary-subtle py-2';
+      li.innerHTML = `<div><div class="fw-semibold">${e.name}</div><div class="small text-secondary">${e.city}</div></div>
+        <a class="btn btn-sm btn-outline-success" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.q)}">Ver en mapa</a>`;
+      ul.appendChild(li);
+    });
+  </script>
+</body>
+</html>
