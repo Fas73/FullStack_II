@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+    <!-- Aquí comienza la cabecera del documento -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo — Level‑Up Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+    <!-- Aquí comienza el cuerpo de la página -->
+<body class="bg-dark text-light">
+    <!-- Barra de navegación superior -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold brand-orbitron" href="index.html">Level‑Up Gamer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+      <div id="mainNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="catalog.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link position-relative" href="cart.html"><i class="bi bi-cart3"></i> Carrito <span id="navCartCount" class="badge bg-success ms-1 d-none">0</span></a></li>
+          <li class="nav-item" id="navAuth"><a class="btn btn-primary btn-sm" href="login.html"><i class="bi bi-person"></i> Iniciar sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <h1 class="h3 brand-orbitron mb-3">Catálogo</h1>
+
+    <!-- Filtros -->
+    <form id="filterForm" class="row g-3 mb-3">
+      <div class="col-12 col-md-3">
+        <label class="form-label">Categoría</label>
+        <select id="fCategory" class="form-select">
+          <option value="">Todas</option>
+        </select>
+      </div>
+      <div class="col-6 col-md-2">
+        <label class="form-label">Precio mín</label>
+        <input id="fMin" type="number" min="0" class="form-control" placeholder="0">
+      </div>
+      <div class="col-6 col-md-2">
+        <label class="form-label">Precio máx</label>
+        <input id="fMax" type="number" min="0" class="form-control" placeholder="9999999">
+      </div>
+      <div class="col-12 col-md-3">
+        <label class="form-label">Buscar</label>
+        <input id="fSearch" type="text" class="form-control" placeholder="Nombre del producto">
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label">Ordenar</label>
+        <select id="fSort" class="form-select">
+          <option value="nameAsc">Nombre A–Z</option>
+          <option value="nameDesc">Nombre Z–A</option>
+          <option value="priceAsc">Precio ↑</option>
+          <option value="priceDesc">Precio ↓</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- Grid de productos -->
+    <div id="grid" class="row g-3"></div>
+
+    <!-- Paginación simple -->
+    <!-- Barra de navegación superior -->
+    <nav class="mt-4" aria-label="Paginación catálogo">
+      <ul id="pager" class="pagination justify-content-center"></ul>
+    </nav>
+  </main>
+
+    <!-- Pie de página -->
+  <footer class="py-4 small text-secondary border-top border-secondary-subtle">
+    <div class="container d-flex justify-content-between"><span>© <span id="year"></span> Level‑Up Gamer</span><a class="link-secondary" href="#" id="logoutLink">Cerrar sesión</a></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    App.initNavbar();
+    App.injectWhatsApp();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(location.search);
+    const initialCat = params.get('cat') || '';
+
+    const grid = document.getElementById('grid');
+    const pager = document.getElementById('pager');
+    const selCat = document.getElementById('fCategory');
+    const fMin = document.getElementById('fMin');
+    const fMax = document.getElementById('fMax');
+    const fSearch = document.getElementById('fSearch');
+    const fSort = document.getElementById('fSort');
+
+    // Poblar categorías
+    [...new Set(PRODUCTS.map(p=>p.category))].forEach(cat=>{
+      const opt = document.createElement('option');
+      opt.value = cat; opt.textContent = cat; selCat.appendChild(opt);
+    });
+    selCat.value = initialCat;
+
+    const PAGE_SIZE = 8;
+    let currentPage = 1;
+
+    function applyFilters(){
+      let data = [...PRODUCTS];
+      const cat = selCat.value;
+      const min = parseInt(fMin.value||'0',10);
+      const max = parseInt(fMax.value||'0',10);
+      const q = (fSearch.value||'').toLowerCase();
+
+      if(cat) data = data.filter(p=>p.category===cat);
+      if(min) data = data.filter(p=>p.price>=min);
+      if(max) data = data.filter(p=>p.price<=max);
+      if(q) data = data.filter(p=>p.name.toLowerCase().includes(q));
+
+      switch(fSort.value){
+        case 'nameAsc': data.sort((a,b)=>a.name.localeCompare(b.name)); break;
+        case 'nameDesc': data.sort((a,b)=>b.name.localeCompare(a.name)); break;
+        case 'priceAsc': data.sort((a,b)=>a.price-b.price); break;
+        case 'priceDesc': data.sort((a,b)=>b.price-a.price); break;
+      }
+      return data;
+    }
+
+    function render(){
+      const data = applyFilters();
+      const totalPages = Math.max(1, Math.ceil(data.length/PAGE_SIZE));
+      currentPage = Math.min(currentPage, totalPages);
+      const start = (currentPage-1)*PAGE_SIZE;
+      const pageItems = data.slice(start, start+PAGE_SIZE);
+
+      grid.innerHTML='';
+      pageItems.forEach(p=>{
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-lg-3';
+        col.innerHTML = `
+          <div class="card card-dark h-100">
+            <img src="assets/placeholder.png" class="card-img-top object-fit-cover placeholder-img" alt="${p.name} (reemplaza por imagen real)">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">${p.name}</h5>
+              <p class="card-text small text-secondary">${p.description}</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-success">${App.formatCLP(p.price)}</span>
+                <div class="btn-group">
+                  <a href="product.html?code=${p.code}" class="btn btn-sm btn-outline-light"><i class="bi bi-eye"></i></a>
+                  <button class="btn btn-sm btn-primary" data-code="${p.code}"><i class="bi bi-cart-plus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        grid.appendChild(col);
+      });
+
+      // Bind botones agregar
+      grid.querySelectorAll('button[data-code]').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const code = e.currentTarget.getAttribute('data-code');
+          Cart.add(code, 1);
+          App.toast('Agregado al carrito');
+          App.updateNavCartCount();
+        });
+      });
+
+      // Paginación
+      pager.innerHTML = '';
+      for(let i=1;i<=totalPages;i++){
+        const li = document.createElement('li');
+        li.className = 'page-item'+(i===currentPage?' active':'');
+        li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        li.addEventListener('click', (ev)=>{ ev.preventDefault(); currentPage=i; render(); window.scrollTo({top:0,behavior:'smooth'}); });
+        pager.appendChild(li);
+      }
+    }
+
+    // Eventos de filtros
+    document.getElementById('filterForm').addEventListener('input', ()=>{ currentPage=1; render(); });
+
+    render();
+  </script>
+</body>
+</html>

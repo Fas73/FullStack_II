@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+    <!-- Aquí comienza la cabecera del documento -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producto — Level‑Up Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+    <!-- Aquí comienza el cuerpo de la página -->
+<body class="bg-dark text-light">
+    <!-- Barra de navegación superior -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold brand-orbitron" href="index.html">Level‑Up Gamer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+      <div id="mainNav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="catalog.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link position-relative" href="cart.html"><i class="bi bi-cart3"></i> Carrito <span id="navCartCount" class="badge bg-success ms-1 d-none">0</span></a></li>
+          <li class="nav-item" id="navAuth"></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4" id="content"></main>
+
+    <!-- Pie de página -->
+  <footer class="py-4 small text-secondary border-top border-secondary-subtle">
+    <div class="container d-flex justify-content-between"><span>© <span id="year"></span> Level‑Up Gamer</span><a class="link-secondary" href="#" id="logoutLink">Cerrar sesión</a></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- IMPORTANTE: inyecta products.js para poder leer el catálogo y mostrar el detalle -->
+  <script src="js/app.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/reviews.js"></script>
+  <script>
+    App.initNavbar(); App.injectWhatsApp();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    const product = PRODUCTS.find(p=>p.code===code);
+    const root = document.getElementById('content');
+
+    if(!product){ root.innerHTML = '<div class="alert alert-warning">Producto no encontrado.</div>'; }
+    else {
+      root.innerHTML = `
+        <div class="row g-4">
+          <div class="col-md-5">
+            <img src="assets/placeholder.png" class="w-100 rounded-4 border border-secondary-subtle" alt="${product.name}">
+            <div class="form-text">Reemplaza esta imagen por la foto real del producto.</div>
+          </div>
+          <div class="col-md-7">
+            <h1 class="h3 brand-orbitron">${product.name}</h1>
+            <div class="text-success fs-4 mb-2">${App.formatCLP(product.price)}</div>
+            <p class="text-secondary">${product.description}</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary" id="addBtn"><i class="bi bi-cart-plus"></i> Agregar</button>
+              <a class="btn btn-outline-light" id="shareBtn" href="#" target="_blank">Compartir</a>
+            </div>
+            <hr>
+            <h2 class="h5 brand-orbitron mt-3">Origen y calidad</h2>
+            <p class="small text-secondary">Fabricantes y distribuidores verificados. Información referencial con fines educativos.</p>
+          </div>
+        </div>
+        <hr class="my-4">
+        <section>
+          <h2 class="h5 brand-orbitron">Reseñas</h2>
+          <div id="reviewsList" class="vstack gap-2 mb-3"></div>
+          <form id="reviewForm" class="row g-2">
+            <div class="col-12 col-md-2">
+              <label class="form-label">Calificación</label>
+              <select id="revRating" class="form-select">
+                <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+              </select>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Comentario</label>
+              <input id="revComment" class="form-control" placeholder="¿Qué te pareció?">
+            </div>
+            <div class="col-md-2 d-grid align-items-end">
+              <button class="btn btn-success" type="submit">Enviar</button>
+            </div>
+          </form>
+        </section>`;
+
+      document.getElementById('addBtn').onclick = ()=>{ Cart.add(product.code, 1); App.toast('Agregado al carrito'); App.updateNavCartCount(); };
+      document.getElementById('shareBtn').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent('Mira este producto: '+product.name)}&url=${encodeURIComponent(location.href)}`;
+
+      // Reseñas
+      function renderReviews(){
+        const list = document.getElementById('reviewsList');
+        const arr = Reviews.list(product.code);
+        list.innerHTML = arr.length? '' : '<div class="text-secondary">Sé el primero en opinar.</div>';
+        arr.forEach(r=>{
+          const div = document.createElement('div');
+          div.className = 'p-3 rounded-3 border border-secondary-subtle';
+          div.innerHTML = `<div class="d-flex justify-content-between"><strong>${r.userEmail}</strong><span class="text-warning">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span></div><div class="small text-secondary">${new Date(r.date).toLocaleDateString()}</div><div>${r.comment}</div>`;
+          list.appendChild(div);
+        });
+      }
+      renderReviews();
+
+      document.getElementById('reviewForm').addEventListener('submit', e=>{
+        e.preventDefault();
+        const user = App.getCurrentUser();
+        if(!user){ App.toast('Debes iniciar sesión para reseñar', 'warning'); return; }
+        Reviews.add(product.code, {
+          userEmail: user.email,
+          rating: parseInt(document.getElementById('revRating').value,10),
+          comment: document.getElementById('revComment').value
+        });
+        App.toast('¡Gracias por tu reseña!');
+        e.target.reset();
+        renderReviews();
+      });
+    }
+  </script>
+</body>
+</html>
