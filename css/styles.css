@@ -1,30 +1,242 @@
-/* Archivo de estilos CSS */
-:root{
-  --bg:#000000; --text:#FFFFFF; --text-2:#D3D3D3; --blue:#1E90FF; --green:#39FF14;
+/* Importa fuentes desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
+
+/* Variables de color */
+:root {
+  --bg-main: #000000;
+  --accent-blue: #1E90FF;
+  --accent-green: #39FF14;
+  --text-main: #FFFFFF;
+  --text-secondary: #D3D3D3;
+  --card-bg: #181818;
+  --border-accent: #1E90FF;
+  --input-bg: #222;
+  --input-border: #1E90FF;
+  --input-focus: #39FF14;
 }
-/* Propiedad que define el color o imagen de fondo */
-html,body{ font-family: 'Roboto', system-ui, -apple-system, Segoe UI, sans-serif; background:var(--bg); color:var(--text); }
-.brand-orbitron{ font-family: 'Orbitron', system-ui, sans-serif; letter-spacing:.5px; }
-.fw-800{ font-weight:800; }
 
-/* Propiedad que define el color o imagen de fondo */
-.card-dark{ background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); border-radius:1rem; }
+/* Tipografía global */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
 
-/* Propiedad que define el color o imagen de fondo */
-.bg-hero{ background: radial-gradient(1200px 400px at 50% -50%, rgba(30,144,255,.25), transparent),
-                   radial-gradient(1000px 300px at 0% 20%, rgba(57,255,20,.15), transparent),
-                   #000; }
+/* Encabezados con Orbitron */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Orbitron', Arial, sans-serif;
+  color: var(--accent-blue);
+  letter-spacing: 1px;
+}
 
-.category-tile{ transition: transform .2s ease, box-shadow .2s ease; }
-.category-tile:hover{ transform: translateY(-3px); box-shadow:0 10px 24px rgba(30,144,255,.15); }
+h2 {
+  color: var(--accent-green);
+  font-size: 2rem;
+}
 
-.placeholder-img{ height: 180px; object-fit: cover; }
 
-.avatar{ width:48px; height:48px; display:grid; place-items:center; border-radius:50%; font-weight:700; }
+/* Navbar */
+.navbar {
+  background: var(--bg-main) !important;
+  border-bottom: 2px solid var(--border-accent);
+  font-family: 'Orbitron', Arial, sans-serif;
+}
 
-.whatsapp-fab{ position:fixed; right:1rem; bottom:1rem; z-index:1030; }
-/* Propiedad que define el color o imagen de fondo */
-.whatsapp-fab a{ display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius:999px; background:var(--green); color:#000; text-decoration:none; font-weight:700; }
-.whatsapp-fab a:hover{ filter:brightness(.95); }
+.navbar-brand {
+  color: var(--text-main) !important;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
 
-:focus{ outline: 2px dashed var(--blue); outline-offset: 2px; }
+.nav-link {
+  color: var(--text-main) !important;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent-blue) !important;
+}
+
+/* Botones */
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--accent-blue), var(--accent-green));
+  border: none;
+  color: var(--bg-main);
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(30, 144, 255, 0.2);
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-success,
+.btn-info,
+.btn-warning {
+  font-weight: 500;
+  border: none;
+  color: var(--bg-main);
+  box-shadow: 0 2px 8px rgba(57, 255, 20, 0.15);
+}
+
+.btn-success {
+  background: var(--accent-green);
+}
+
+.btn-info {
+  background: var(--accent-blue);
+}
+
+.btn-warning {
+  background: #FFD700;
+  color: var(--bg-main);
+}
+
+.btn-danger {
+  background: #FF1744;
+  color: var(--text-main);
+  border: none;
+}
+
+/* Cards */
+.card-dark,
+.card {
+  background: var(--card-bg) !important;
+  border-radius: 12px;
+  border: 1px solid var(--border-accent);
+  color: var(--text-main);
+  box-shadow: 0 4px 16px rgba(30, 144, 255, 0.08);
+  transition: transform 0.2s;
+}
+
+.card-dark:hover,
+.card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(57, 255, 20, 0.12);
+}
+
+/* Inputs y formularios */
+.form-control,
+.form-select,
+textarea {
+  background: var(--input-bg);
+  color: var(--text-main);
+  border: 1.5px solid var(--input-border);
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 2px var(--accent-green);
+  outline: none;
+}
+
+.form-label {
+  color: var(--accent-blue);
+  font-weight: 500;
+}
+
+/* Badges */
+.badge.bg-success {
+  background: var(--accent-green) !important;
+  color: var(--bg-main);
+  font-weight: 700;
+}
+
+.badge.bg-primary {
+  background: var(--accent-blue) !important;
+  color: var(--bg-main);
+}
+
+/* Footer */
+footer {
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  border-top: 2px solid var(--border-accent);
+  font-family: 'Orbitron', Arial, sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Hero Section */
+.bg-hero {
+  background: linear-gradient(45deg, #181818 40%, var(--accent-blue) 200%);
+  color: var(--text-main);
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--accent-blue);
+}
+
+/* Categorías destacadas */
+#catGrid .card-dark {
+  border: 2px solid var(--accent-green);
+  color: var(--accent-green);
+  font-size: 1.2rem;
+  font-family: 'Orbitron', Arial, sans-serif;
+  background: #111;
+  transition: background 0.2s, color 0.2s;
+}
+
+#catGrid .card-dark:hover {
+  background: var(--accent-green);
+  color: var(--bg-main);
+}
+
+/* Mensajes y textos secundarios */
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+/* Responsive: mejora visual en móviles */
+@media (max-width: 600px) {
+  .navbar-brand {
+    font-size: 1.4rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .card-dark,
+  .card {
+    font-size: 0.95rem;
+  }
+}
+
+/* Animación para botones */
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover,
+.btn-warning:hover {
+  box-shadow: 0 4px 16px rgba(30, 144, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: 4px;
+}

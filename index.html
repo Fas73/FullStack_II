@@ -1,147 +1,78 @@
 <!doctype html>
 <html lang="es">
-<!-- Aquí comienza la cabecera del documento -->
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Level‑Up Gamer — Tienda Gamer en Chile</title>
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@300;400;500;700&display=swap"
-    rel="stylesheet">
-  <!-- Bootstrap CSS -->
+  <title>Level-Up Gamer - Inicio</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <!-- README rápido: cómo probar -->
-  <!--
-    Instrucciones rápidas:
-    1. Abre catalog.html para ver el catálogo y agregar productos al carrito.
-    2. (Opcional) Regístrate en register.html; si usas un email @duoc.cl tendrás 20% de descuento permanente.
-    3. El canje de puntos: 1 punto por cada $1.000 del subtotal; 1 punto descuenta $10, tope 50% del subtotal.
-    4. Paga (simulado) en cart.html. Se guardará una “orden” en localStorage.
-    5. Refiere a otra cuenta: al registrar un nuevo usuario puedes poner el email del padrino; este gana 200 puntos.
-  -->
 </head>
-<!-- Aquí comienza el cuerpo de la página -->
 
 <body class="bg-dark text-light">
-  <!-- Navbar común -->
-  <!-- Barra de navegación superior -->
+  <!-- Barra de navegación -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-primary sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold brand-orbitron" href="index.html">Level‑Up Gamer</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span
-          class="navbar-toggler-icon"></span></button>
+      <a class="navbar-brand fw-bold" href="index.html">Level-Up Gamer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div id="mainNav" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+        <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="catalog.html">Catálogo</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
-          <li class="nav-item"><a class="nav-link position-relative" href="cart.html"><i class="bi bi-cart3"></i>
-              Carrito <span id="navCartCount" class="badge bg-success ms-1 d-none">0</span></a></li>
-          <li class="nav-item" id="navAuth"><a class="btn btn-primary btn-sm" href="login.html"><i
-                class="bi bi-person"></i> Iniciar sesión</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-cart3"></i> Carrito <span
+                id="navCartCount" class="badge bg-success d-none">0</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope"></i> Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person"></i> Login</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <header class="py-5 bg-hero text-center">
-    <div class="container py-5">
-      <h1 class="display-4 fw-800 brand-orbitron">Sube de nivel tu setup</h1>
-      <p class="lead text-secondary">Consolas, accesorios y PCs gamers con despacho a todo Chile.</p>
-      <div class="d-flex justify-content-center gap-3">
-        <a class="btn btn-lg btn-primary" href="catalog.html">Ver catálogo</a>
-        <a class="btn btn-lg btn-outline-success" href="register.html">Únete y gana puntos <i
-            class="bi bi-stars"></i></a>
-      </div>
+  <header class="text-center py-5 bg-hero">
+    <div class="container">
+      <h1 class="display-4 fw-bold">Bienvenido a tu tienda gamer en Chile</h1>
+      <p> Consolas, accesorios y PCs gamers con despacho a todo Chile</p>
+      <a href="catalog.html" class="btn btn-primary btn-lg mt-3">Ver Catálogo</a>
     </div>
   </header>
 
-  <!-- Misión / Visión -->
-  <section class="container py-5">
-    <div class="row g-4">
-      <div class="col-lg-6">
-        <div class="p-4 rounded-4 card-dark h-100">
-          <h2 class="h3 brand-orbitron text-primary">Misión</h2>
-          <p>Proporcionar productos de alta calidad para gamers en todo Chile, con una experiencia de compra única y
-            personalizada.</p>
-        </div>
+  <!-- Misión y Visión -->
+  <section class="container my-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-primary">Misión</h2>
+        <p style="font-size: .8rem;">Proporcionar productos gamer de calidad y accesibles en todo Chile.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, consectetur quis animi dolorem minima, soluta
+          esse sint laborum assumenda ducimus ea deleniti sequi, tempore nobis sed. Porro accusamus rem perspiciatis!
+        </p>
       </div>
-      <div class="col-lg-6">
-        <div class="p-4 rounded-4 card-dark h-100">
-          <h2 class="h3 brand-orbitron text-success">Visión</h2>
-          <p>Ser la tienda online líder en productos para gamers, con innovación, servicio excepcional y un programa de
-            fidelización con gamificación.</p>
-        </div>
+      <div class="col-md-6">
+        <h2 class="text-success">Visión</h2>
+        <p style="font-size: .8rem;">Ser la tienda gamer líder, reconocida por innovación y servicio.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt cum sed quibusdam in nostrum adipisci, facere
+          quae exercitationem ratione natus doloremque culpa molestias deserunt doloribus hic aliquid libero aut error.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Categorías destacadas -->
-  <section class="container pb-5">
-    <h2 class="h3 brand-orbitron mb-4">Categorías destacadas</h2>
+  <!-- Categorías -->
+  <section class="container my-5">
+    <h2>Categorías destacadas</h2>
     <div id="catGrid" class="row g-3"></div>
   </section>
 
-  <!-- Impacto comunitario -->
-  <section class="bg-black py-5 border-top border-bottom border-secondary-subtle">
-    <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-8">
-          <h2 class="h3 brand-orbitron">Impacto Comunitario</h2>
-          <p class="mb-0">Tus compras apoyan eventos y torneos locales. Revisa <a href="events.html"
-              class="link-success">Eventos</a> para ganar puntos LevelUp participando en actividades de la comunidad
-            gamer.</p>
-        </div>
-        <div class="col-lg-4 text-lg-end">
-          <a href="blog.html" class="btn btn-outline-primary">Blog & Noticias</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <!-- Pie de página -->
-  <footer class="py-4 small text-secondary">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <span>© <span id="year"></span> Level‑Up Gamer — Proyecto educativo</span>
-      <div class="d-flex gap-3">
-        <a class="link-secondary" href="contact.html">Soporte</a>
-        <a class="link-secondary" href="#" id="logoutLink" class="d-none">Cerrar sesión</a>
-      </div>
-    </div>
+  <footer class="bg-black text-center py-3">
+    <p class="mb-0">&copy; <span id="year"></span> Level-Up Gamer</p>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- App & módulos -->
-  <script src="js/app.js"></script>
-  <script src="js/products.js"></script>
+  <script src="js/script.js"></script>
   <script>
-    // Render dinámico de categorías destacadas
     document.getElementById('year').textContent = new Date().getFullYear();
-    App.initNavbar();
-    App.injectWhatsApp();
-
-    const categories = [...new Set(PRODUCTS.map(p => p.category))];
-    const grid = document.getElementById('catGrid');
-    const colors = ['primary', 'success', 'info', 'warning', 'danger', 'secondary'];
-    categories.slice(0, 6).forEach((cat, i) => {
-      const col = document.createElement('div');
-      col.className = 'col-6 col-md-4 col-lg-2';
-      col.innerHTML = `
-        <a href="catalog.html?cat=${encodeURIComponent(cat)}" class="text-decoration-none">
-          <div class="category-tile border border-${colors[i % colors.length]} rounded-4 p-3 text-center h-100">
-            <div class="fs-1 mb-2"><i class="bi bi-controller"></i></div>
-            <div class="fw-semibold text-light">${cat}</div>
-          </div>
-        </a>`;
-      grid.appendChild(col);
-    });
+    App.showCategories('catGrid');
   </script>
 </body>
 
